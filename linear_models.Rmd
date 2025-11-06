@@ -1,0 +1,86 @@
+---
+title: "linear_models"
+author: "Angelica Bailey"
+date: "2025-11-06"
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+library(p8105.datasets)
+
+set.seed(1)
+```
+
+
+Load the NYC airbnb data
+
+```{r}
+data(nyc_airbnb)
+```
+
+Look at the data/do some cleaning
+```{r}
+nyc_airbnb =
+  nyc_airbnb |> 
+  mutate(
+    stars = review_scores_location / 2
+  ) |> 
+  rename(
+    borough = neighbourhood_group
+  ) |> 
+  filter(borough != "Staten Island") |> 
+  select(price, stars, borough, room_type, neighbourhood)
+```
+
+
+do regression
+```{r}
+fit = lm(price ~ stars + borough, data = nyc_airbnb)
+```
+R converts borough to factor(bronx, brooklyn, queens, manhattan)
+
+do some additional cleaning
+
+```{r}
+nyc_airbnb =
+  nyc_airbnb |> 
+  mutate(
+    borough = fct_infreq(borough), #make reference group the one that is most common, based on count
+    room_type = fct_infreq(room_type)
+  )
+
+fit = lm(price ~ stars + borough, data = nyc_airbnb)
+#changing interpretation of coefficients
+```
+
+
+Look at `lm` stuff
+```{r, eval = FALSE}
+summary(fit)
+names(summary(fit))
+summary(fit)[["coefficients"]]
+summary(fit)[["df"]]
+
+```
+
+
+Look at cleaner `lm` stuff
+```{r}
+fit |> 
+  broom::tidy() |> 
+  mutate(
+    term = str_replace(term, "borough", "Borough: ")
+  ) |> 
+  select(term, estimate, p.value) |> 
+  knitr::kable(digits = 3)
+```
+
+
+
+
+
+
+
+
+
