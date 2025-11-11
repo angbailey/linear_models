@@ -2,7 +2,7 @@
 title: "linear_models"
 author: "Angelica Bailey"
 date: "2025-11-06"
-output: html_document
+output: github_document
 ---
 
 ```{r}
