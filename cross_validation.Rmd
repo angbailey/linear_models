@@ -1,0 +1,20 @@
+---
+title: "cross_validation"
+author: "Angelica Bailey"
+date: "2025-11-11"
+output: github_document
+---
+
+```{r}
+library(tidyverse)
+library(modelr)
+library(mgcv)
+```
+
+
+```{r}
+library(p8105.datasets)
+
+set.seed(1)
+```
+
