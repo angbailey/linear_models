@@ -1,0 +1,8 @@
+---
+title: "bootstrapping"
+author: "Angelica Bailey"
+date: "2025-11-13"
+output: github_document
+---
+
+
